@@ -99,6 +99,14 @@ class HtmlTable extends Visualization
                     }
                 });
 
+                if (empty($this->config->columns_to_display)) {
+                    $columns = $this->dataTable->getColumns();
+                    $hasNbVisits       = in_array('nb_visits', $columns);
+                    $hasNbUniqVisitors = in_array('nb_uniq_visitors', $columns);
+
+                    $this->config->setDefaultColumnsToDisplay($columns, $hasNbVisits, $hasNbUniqVisitors);
+                }
+
                 $label = array_search('label', $this->config->columns_to_display);
                 if ($label !== false) {
                     unset($this->config->columns_to_display[$label]);
